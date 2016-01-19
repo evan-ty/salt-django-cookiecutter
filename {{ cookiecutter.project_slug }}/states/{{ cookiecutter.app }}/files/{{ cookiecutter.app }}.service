@@ -1,0 +1,19 @@
+[Unit]
+Description={{ cookiecutter.app }} application
+After=network.target
+
+[Service]
+User={{ cookiecutter.app }}
+Group={{ cookiecutter.app }}
+WorkingDirectory=/home/{{ cookiecutter.app }}/app
+ExecStart=/home/{{ cookiecutter.app }}/app-env/bin/gunicorn --workers 3 --bind
+unix:/home/{{ cookiecutter.app }}/{{ cookiecutter.app }}.sock {{
+cookiecutter.app }}.wsgi:application
+Environment="SECRET_KEY={{ "{{" }} pillar.app.secret_key {{ "}}" }}"
+Environment="DATABASE_URL=postgres://{{ "{{" }} pillar.database.db_user {{ "}}" }}:{{ "{{" }} pillar.database.db_password {{ "}}" }}@localhost/{{ "{{" }} pillar.database.db_name {{ "}}" }}"
+Environment="STATIC_ROOT={{ "{{" }} pillar.app.static_root {{ "}}" }}"
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target
