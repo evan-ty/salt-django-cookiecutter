@@ -1,5 +1,5 @@
 {
-    "project_name": "Salt-Django boilerplate",
+    "project_name": "Salt Django boilerplate",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
     "app": "shiny",
     "user": "{{ cookiecutter.app }}",
