@@ -1,3 +1,3 @@
 app:
     secret_key: secret
-    static_root: static
+    static_root: /var/www/{{ cookiecutter.app }}
